@@ -1,0 +1,56 @@
+* {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.container {
+  /* display: flex; */
+}
+
+.row {
+  margin-top: 2rem;
+
+  width: 100%;
+  justify-content: center;
+}
+
+.row .input-group {
+  margin-bottom: 2rem;
+}
+
+.row #upload-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.row #upload-form > button {
+  margin-top: 1rem;
+}
+
+#image-holder.row {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container {
+  margin-bottom: 1rem;
+  position: relative;
+}
+.image-container .image-container__inner img {
+  width: 175px;
+  height: 200px;
+}
+.image-container .image-container__inner img {
+  width: 100%;
+  height: auto;
+}
+.image-container .single-convert-btn {
+  position: absolute;
+  top: 33%;
+  right: 33%;
+  /* visibility: hidden; */
+}
+/* .image-container > img:hover ~ .single-convert-btn {
+  border: 1px solid red;
+  visibility: visible;
+} */

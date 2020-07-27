@@ -1,0 +1,26 @@
+<div class="sidebar">
+    <div class="sidebar-menu">
+        <!-- Sidebar brand -->
+
+        <!-- Sidebar content with the search box -->
+        <div class="sidebar-content">
+            <h5 class="sidebar-title">Files to be converted</h5>
+            <div class="sidebar-divider"></div>
+            <div class="row" id="image-holder">
+                {{#if result}}
+                {{#each result }}
+                <div class="image-container">
+                    <div class="image-container__inner">
+                        <img src="{{image}}" alt="">
+                    </div>
+
+                    <button class="btn btn-success single-convert-btn" data-id="{{id}}">Convert</button>
+                </div>
+                {{/each}}
+                {{/if}}
+            </div>
+        </div>
+
+        <br />
+    </div>
+</div>
