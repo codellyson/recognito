@@ -1,7 +1,6 @@
 <div class="sidebar">
     <div class="sidebar-menu">
         <!-- Sidebar brand -->
-
         <!-- Sidebar content with the search box -->
         <div class="sidebar-content">
             <h5 class="sidebar-title">Files to be converted</h5>
@@ -13,12 +12,20 @@
                     <div class="image-container__inner">
                         <img src="{{image}}" alt="">
                     </div>
+                    <span class="">
+                        <i class="fa fa-trash remove-btn" aria-hidden="true" data-id="{{id}}"></i>
+                    </span>
 
-                    <button class="btn btn-success single-convert-btn" data-id="{{id}}">Convert</button>
+                    <i class="fas fa-cog  fa-3x fa-fw single-convert-btn" data-id="{{id}}"></i>
+
                 </div>
                 {{/each}}
+                {{!-- <button class="btn btn-danger remove-all-tasks ">Remove all tasks</button> --}}
+                {{else}}
+                <h3>No task yet! Add Task.</h3>
                 {{/if}}
             </div>
+
         </div>
 
         <br />

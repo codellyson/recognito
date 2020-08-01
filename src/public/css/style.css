@@ -2,15 +2,11 @@
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
-.container {
-  /* display: flex; */
-}
-
-.row {
-  margin-top: 2rem;
-
+#form .row {
+  margin-top: 5rem;
   width: 100%;
   justify-content: center;
+  align-items: center;
 }
 
 .row .input-group {
@@ -22,7 +18,7 @@
   flex-direction: column;
 }
 
-.row #upload-form > button {
+.row #upload-form>button {
   margin-top: 1rem;
 }
 
@@ -36,20 +32,56 @@
   margin-bottom: 1rem;
   position: relative;
 }
+
 .image-container .image-container__inner img {
   width: 175px;
   height: 200px;
 }
+
 .image-container .image-container__inner img {
   width: 100%;
   height: auto;
 }
+
+
 .image-container .single-convert-btn {
   position: absolute;
   top: 33%;
   right: 33%;
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+  color: black;
   /* visibility: hidden; */
 }
+
+.image-container .single-convert-btn:active {
+  outline: none;
+}
+
+.image-container .remove-btn {
+  position: absolute;
+  z-index: 99;
+  background-color: rgba(236, 218, 218, 0.281);
+  border-radius: 50%;
+  right: 5%;
+  height: 30px;
+  width: 30px;
+  top: 5%;
+  transition: all 300ms;
+  color: rgba(0, 0, 0, 0.801);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.image-container .remove-btn:hover {
+  background: #000;
+  color: #f0f0f0;
+}
+
 /* .image-container > img:hover ~ .single-convert-btn {
   border: 1px solid red;
   visibility: visible;

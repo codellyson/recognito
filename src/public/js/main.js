@@ -1,4 +1,3 @@
-/* 
 function updateProgress() {
   console.log("update", this.responseText);
 }
@@ -61,4 +60,3 @@ function uploadImage(e) {
   xhr.send(uploadValue);
   console.log(uploadValue);
 }
-*/

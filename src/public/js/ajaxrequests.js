@@ -1,57 +1,117 @@
 $(document).ready(function () {
-  //   const urlConvertBtn = document.querySelector("#url-convert-button");
-  //   urlConvertBtn.addEventListener("click", convertImageUrl);
-  const imageHolder = document.getElementById("image-holder");
-
+  function toast(content, title, alertType, showDismissBtn, timeout) {
+    halfmoon.initStickyAlert({
+      content: content,
+      title: title,
+      alertType: alertType,
+      hasDismissButton: showDismissBtn,
+      timeShown: timeout,
+    });
+  }
+  document.getElementById("toggle-sidebar").onclick = function () {
+    halfmoon.toggleSidebar();
+  };
+  // File upload function
   $("#upload-form").submit((e) => {
     e.preventDefault();
 
     let formData = new FormData();
-    let dd = document.querySelector("#customFile").files[0];
-    formData.append("image_upload", dd);
+    const inputFiles = document.querySelector("#customFile");
+
+    for (const file of inputFiles.files) {
+      formData.append("image_upload", file);
+    }
     $("#upload-btn").text("please wait...");
+    toast("uploading please wait...", "Info", "alert-secondary", false, 1000);
+
     $.ajax({
       type: "post",
       url: "/",
       processData: false,
       contentType: false,
       data: formData,
-      xhr: function () {
-        const xhr = new window.XMLHttpRequest();
-        xhr.addEventListener("progress", function (e) {
-          if (e.lengthComputable) {
-            let prgress = (e.loaded / e.total) * 100;
-            console.log(prgress);
-          }
-        });
-        return xhr;
-      },
     })
       .done((res) => {
         $("#upload-btn").text("convert");
-        alert(res.result);
-        window.location.reload();
+        toast(res.message, "Info", "alert-success", true, 10000);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       })
       .fail((res) => {
-        console.log(res);
+        toast(res.message, "Info", "alert-danger", true, 10000);
+        setTimeout(() => {
+          window.location.href = "/recognize";
+        }, 10000);
       });
   });
+  // Convert button function
   $(".single-convert-btn").click(function (e) {
     const target = e.target;
     const id = target.getAttribute("data-id");
-    $(this).text("please wait...");
-    console.log(id);
+    target.classList.add("fa-spin");
+    toast(
+      "Recognizing please wait...",
+      "Info",
+      "alert-secondary",
+      false,
+      10000
+    );
+
     $.ajax({
       url: "/image/" + id,
       type: "GET",
     })
       .done((res) => {
-        console.log(res.result);
+        toast(
+          "Recognition completed! wait for auto download 😎",
+          "Info",
+          "alert-success",
+          true,
+          10000
+        );
+        target.classList.remove("fa-spin");
         window.location = "/download";
-        $(this).text("done");
       })
       .fail((res) => {
-        console.log(res.message);
+        toast(res.message, "Error", "alert-danger", true, 10000);
       });
   });
+  // Remove Button function
+  $(".remove-btn").click(function (e) {
+    const target = e.target;
+    const id = target.getAttribute("data-id");
+    $.ajax({
+      url: "/image/" + id,
+      type: "DELETE",
+    })
+      .done((res) => {
+        toast(res.message, "Info", "alert-success", true, 1000);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      })
+      .fail((res) => {
+        toast(res.message, "Error", "alert-danger", true, 10000);
+        setTimeout(() => {
+          window.location.reload();
+        }, 10000);
+      });
+  });
+  // remove all task function
+  // $(".remove-all-tasks").click(function (e) {
+  //   $.ajax({
+  //     url: "/image/",
+  //     type: "DELETE",
+  //   })
+  //     .done((res) => {
+  //       toast(res.message, "Info", "alert-success", true, 1000);
+  //       setTimeout(() => {
+  //         window.location.reload();
+  //       }, 1000);
+  //     })
+  //     .fail((res) => {
+  //       toast(res.message, "Error", "alert-danger", true, 10000);
+  //     });
+  // });
 });
