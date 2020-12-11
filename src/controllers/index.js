@@ -29,7 +29,7 @@ exports.recognizePage = async (req, res) => {
     const result = data.map((res) => {
       return res;
     });
-    console.log();
+
     res.render("./../src/views/recognize.hbs", {
       title: "Recognize",
       result,
@@ -74,7 +74,6 @@ exports.convertImage = async (req, res) => {
 
     const options = {
       apiKey: "c454cc712088957",
-      // filetype: "jpg",
       verbose: true,
       OCREngine: 2,
     };
@@ -100,12 +99,13 @@ exports.convertImage = async (req, res) => {
     PDFDoc.end();
 
     // write to TEXT
-    fs.writeSync(`${__dirname}/../../pdf/result.txt`, ocredResult);
+    fs.writeFileSync(`${__dirname}/../../pdf/result.txt`, ocredResult);
     res.json({
       statusCode: 201,
       message: "Recognition completed! wait for auto download 😎",
     });
   } catch (err) {
+    console.log(err);
     res.json({
       statusCode: 500,
       message: "An error occured, try again!",
