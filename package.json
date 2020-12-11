@@ -10,12 +10,17 @@
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.3",
     "body-parser": "^1.19.0",
+    "docx": "^5.4.1",
     "express": "^4.17.1",
     "express-handlebars": "^5.1.0",
     "handlebars": "^4.7.6",
     "mongoose": "^5.9.25",
     "multer": "^1.4.2",
     "nodemon": "^2.0.4",
-    "tesseract.js": "^2.1.1"
+    "ocr-space-api-wrapper": "^1.0.5",
+    "pdfkit": "^0.11.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }

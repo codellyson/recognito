@@ -32,7 +32,7 @@ $(document).ready(function () {
       data: formData,
     })
       .done((res) => {
-        $("#upload-btn").text("convert");
+        $("#upload-btn").text("upload");
         toast(res.message, "Info", "alert-success", true, 10000);
         setTimeout(() => {
           window.location.reload();
@@ -50,6 +50,7 @@ $(document).ready(function () {
     const target = e.target;
     const id = target.getAttribute("data-id");
     target.classList.add("fa-spin");
+    document.querySelector(".toolbox").style.visibility = "hidden";
     toast(
       "Recognizing please wait...",
       "Info",
@@ -61,21 +62,22 @@ $(document).ready(function () {
     $.ajax({
       url: "/image/" + id,
       type: "GET",
-    })
-      .done((res) => {
-        toast(
-          "Recognition completed! wait for auto download 😎",
-          "Info",
-          "alert-success",
-          true,
-          10000
-        );
-        target.classList.remove("fa-spin");
-        window.location = "/download";
-      })
-      .fail((res) => {
+    }).done((res) => {
+      if (res.statusCode === 500) {
         toast(res.message, "Error", "alert-danger", true, 10000);
-      });
+        target.classList.remove("fa-spin");
+      }
+      if (res.statusCode === 201) {
+        toast(res.message, "Info", "alert-success", true, 10000);
+        target.classList.remove("fa-spin");
+        document.querySelector(".toolbox").style.visibility = "visible";
+      }
+
+      // window.location = "/download";
+    });
+    // .fail((res) => {
+    //    toast(res.message, "Error", "alert-danger", true, 10000);
+    // });
   });
   // Remove Button function
   $(".remove-btn").click(function (e) {
@@ -98,20 +100,4 @@ $(document).ready(function () {
         }, 10000);
       });
   });
-  // remove all task function
-  // $(".remove-all-tasks").click(function (e) {
-  //   $.ajax({
-  //     url: "/image/",
-  //     type: "DELETE",
-  //   })
-  //     .done((res) => {
-  //       toast(res.message, "Info", "alert-success", true, 1000);
-  //       setTimeout(() => {
-  //         window.location.reload();
-  //       }, 1000);
-  //     })
-  //     .fail((res) => {
-  //       toast(res.message, "Error", "alert-danger", true, 10000);
-  //     });
-  // });
 });

@@ -1,16 +1,18 @@
 const fs = require("fs");
 const Convert = require("../models/Convert");
-const { createWorker } = require("tesseract.js");
-const worker = createWorker({
-  logger: (m) => progressBar(m),
-});
+const OCR = require("ocr-space-api-wrapper");
+const { Document, Packer, Paragraph, TextRun } = require("docx");
+const pdf = require("pdfkit");
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 exports.home = async (req, res) => {
   try {
-    const data = await Convert.find();
+    const data = await Convert.find().sort({ data: -1 });
     const result = data.map((res) => {
       return res;
     });
-    console.log();
     res.render("./../src/views/index.hbs", {
       title: "Home",
       result,
@@ -27,7 +29,7 @@ exports.recognizePage = async (req, res) => {
     const result = data.map((res) => {
       return res;
     });
-    console.log();
+
     res.render("./../src/views/recognize.hbs", {
       title: "Recognize",
       result,
@@ -69,12 +71,43 @@ exports.convertImage = async (req, res) => {
     const id = req.params.id;
     const result = await Convert.findById(id);
     const image = result.image;
-    await recognizeImage(image);
+
+    const options = {
+      apiKey: "c454cc712088957",
+      verbose: true,
+      OCREngine: 2,
+    };
+    const text = await OCR(image, options);
+    const ocredResult = text.ParsedResults[0].ParsedText;
+
+    // Write to DOCX
+    const doc = new Document();
+    doc.addSection({
+      properties: {},
+      children: [new Paragraph(ocredResult)],
+    });
+    // Used to export the file into a .docx file
+    Packer.toBuffer(doc).then((buffer) => {
+      fs.writeFileSync(`${__dirname}/../../pdf/result.docx`, buffer);
+    });
+
+    // Write To PDF using PDFKIT
+    const PDFDoc = new pdf();
+
+    PDFDoc.pipe(fs.createWriteStream(`${__dirname}/../../pdf/result.pdf`));
+    PDFDoc.text(ocredResult);
+    PDFDoc.end();
+
+    // write to TEXT
+    fs.writeFileSync(`${__dirname}/../../pdf/result.txt`, ocredResult);
     res.json({
-      // result: "Recognition completed! wait for auto download 😎",
+      statusCode: 201,
+      message: "Recognition completed! wait for auto download 😎",
     });
   } catch (err) {
+    console.log(err);
     res.json({
+      statusCode: 500,
       message: "An error occured, try again!",
     });
   }
@@ -84,7 +117,6 @@ exports.deleteSingleImage = async (req, res) => {
   try {
     const id = req.params.id;
     const result = await Convert.findByIdAndDelete(id);
-
     fs.unlinkSync(result.image);
     res.json({
       result,
@@ -96,43 +128,6 @@ exports.deleteSingleImage = async (req, res) => {
     });
   }
 };
-// exports.deleteAllImage = async (req, res) => {
-//   try {
-//     const result = await Convert.deleteMany();
-//     console.log(result);
-//     result.forEach((res) => {
-//       fs.unlinkSync(res.image);
-//     });
-//     res.json({
-//       result,
-//       message: "Tasks removed successfully",
-//     });
-//   } catch (err) {
-//     res.json({
-//       message: "An error occured, try again!",
-//     });
-//   }
-// };
-
-async function recognizeImage(image) {
-  try {
-    await worker.load();
-    await worker.loadLanguage("eng");
-    await worker.initialize("eng");
-    const {
-      data: { text },
-    } = await worker.recognize(image);
-    await worker.terminate();
-    const { data } = await worker.getPDF("Tessercat OCR Result");
-    fs.writeFileSync("./pdf/result.pdf", Buffer.from(data));
-
-    return text;
-  } catch (err) {
-    res.json({
-      message: "An error occured, try again!",
-    });
-  }
-}
 
 async function progressBar(progress) {
   console.log(progress);
@@ -140,4 +135,13 @@ async function progressBar(progress) {
 exports.downloadAsPDf = async (req, res) => {
   const pdfFile = `${__dirname}/../../pdf/result.pdf`;
   res.download(pdfFile);
+};
+
+exports.downloadAsTxt = async (req, res) => {
+  const txtFile = `${__dirname}/../../pdf/result.txt`;
+  res.download(txtFile);
+};
+exports.downloadAsDoc = async (req, res) => {
+  const docFile = `${__dirname}/../../pdf/result.docx`;
+  res.download(docFile);
 };
