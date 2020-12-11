@@ -36,7 +36,7 @@ function convertImageUrl(e) {
   xhr.send(JSON.stringify({ url: imageUrl.trim() }));
 
   xhr.onload = function () {
-    console.log("Loadding");
+    console.log("Loading");
     const data = JSON.parse(xhr.response);
     console.log(data);
     document.getElementById("output").innerHTML = `

@@ -1,16 +1,24 @@
 const mongoose = require("mongoose");
 
-function mongodb() {
-  const uri = "mongodb://localhost:27017/image_recognition";
+async function mongodb() {
+  let uri;
 
-  mongoose
-    .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(function (done) {
-      console.log("MongoDB Connected");
-    })
-    .catch(function (err) {
-      throw new Error(err);
+  if (process.env.NODE_ENV !== "production") {
+    uri = "mongodb://localhost:27017/image_recognition";
+  } else {
+    uri = process.env.MONGO_DB_URI;
+  }
+
+  try {
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
     });
+    console.log("MongoDB Connected");
+  } catch (err) {
+    throw new Error(err);
+  }
 }
 module.exports = {
   mongodb,

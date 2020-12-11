@@ -81,7 +81,9 @@
   background: #000;
   color: #f0f0f0;
 }
-
+.toolbox{
+  visibility: hidden;
+}
 /* .image-container > img:hover ~ .single-convert-btn {
   border: 1px solid red;
   visibility: visible;
