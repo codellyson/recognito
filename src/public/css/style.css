@@ -1,5 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
 * {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 
 #form .row {
@@ -18,7 +19,7 @@
   flex-direction: column;
 }
 
-.row #upload-form>button {
+.row #upload-form > button {
   margin-top: 1rem;
 }
 
@@ -42,7 +43,6 @@
   width: 100%;
   height: auto;
 }
-
 
 .image-container .single-convert-btn {
   position: absolute;
@@ -81,7 +81,7 @@
   background: #000;
   color: #f0f0f0;
 }
-.toolbox{
+.toolbox {
   visibility: hidden;
 }
 /* .image-container > img:hover ~ .single-convert-btn {
