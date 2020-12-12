@@ -97,6 +97,7 @@ exports.convertImage = async (req, res) => {
 
     // write to TEXT
     fs.writeFileSync(`${__dirname}/../../pdf/result.txt`, ocredResult);
+     fs.unlinkSync(image);
     await Convert.findByIdAndDelete(id);
     res.json({
       statusCode: 201,
@@ -127,9 +128,6 @@ exports.deleteSingleImage = async (req, res) => {
   }
 };
 
-async function progressBar(progress) {
-  console.log(progress);
-}
 exports.downloadAsPDf = async (req, res) => {
   const pdfFile = `${__dirname}/../../pdf/result.pdf`;
   res.download(pdfFile);

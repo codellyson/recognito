@@ -1,22 +1,41 @@
-*
-UNIVERSTTY OF ABUJA,
-DEPARTMENT: EDUCATIONAL FOUNDATIONS,
-DESCRIPTION: CURRICULUM AND INSTRUCTION,
-COURSE CODE: EDU 205,
-CREDIT UNIT: 2
-NSTRUCTION: ANSWER ANY THREE QUESTIONS,
-LEVEL: 200,
-FERST SEMESTER EXAMINATION 2018/2019
-TIME ALLOWED: 2 BHOURS.
-a. Define curiculum and show how it is related to instruction
-1b. State five characteristics of lesson pla
-2a. Explain the meaning of curriculum design
-2b. Write short notes on the following types of curriculum designs
-a) Subject centred
-b) Activity centred
-CCore- centred
-Ba. Discuss four factors affecting effective teachimg
-3b. Identify and discuss four ypes of motivation
-4a. Explain the term classroom management
-45. Briefly discuSS four roies of teachers in Ciassroom management
-5. State and explain Benjamin Bloom's taxonomy of educational objectives
+UNIVERSITY OF ABUJA
+DEPARTMENT OF PHYSICS
+FIRST SEMESTER 2018/2019 SESsSION EXAMINATION
+COURSE TITLE: Basic Experimental Physies III
+COURSE CODE: PHY 211
+INSTRUCTTONS: Answer question number 1 and any other one question.
+1. In an experiment perforned 5 times by a student to verify the length of his graph
+TIME ALLOWED: 1hr
+sheet, he recorded these observations.
+OBSERVATIONS LENGTH
+(CM)_
+31.33
+31.15:
+1.20
+51.02
+31.20
+(a). Determine the standard deviation
+(6). Determine the standard error
+CHence, what is the average paper length?
+2(a). The following values were obtained to determine acceleration due to gravity by
+using bifilar suspension for 20 0scillations.
+Lcm)_
+40.0
+50.0
+S/n
+Time t(S)
+|Period T (S)T)
+1D,0
+T. .0
+60.0
+70.0
+80.0
+19.0
+23.
+i.) Copy and complete the table above
+ii.) Plot a graph of T on the vertical axis and L on the horizontal axis
+ii). Determine the slope of the graph and state two precautions taken during the
+experiment
+b. Define the term "cóuple" as it relates to rotational or oscillatory systems
+3a. What do you understand by precision and accuracy?
+b. Define each parameter in the straight line equetion: y= mx+c
