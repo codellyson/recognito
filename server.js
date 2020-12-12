@@ -11,7 +11,9 @@ const Handlebars = require("handlebars");
 
 const app = express();
 const { mongodb } = require("./src/configs/mongo");
-
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 // use bodyParser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

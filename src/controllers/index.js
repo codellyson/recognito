@@ -3,9 +3,6 @@ const Convert = require("../models/Convert");
 const OCR = require("ocr-space-api-wrapper");
 const { Document, Packer, Paragraph, TextRun } = require("docx");
 const pdf = require("pdfkit");
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
 
 exports.home = async (req, res) => {
   try {
@@ -100,6 +97,8 @@ exports.convertImage = async (req, res) => {
 
     // write to TEXT
     fs.writeFileSync(`${__dirname}/../../pdf/result.txt`, ocredResult);
+     fs.unlinkSync(image);
+    await Convert.findByIdAndDelete(id);
     res.json({
       statusCode: 201,
       message: "Recognition completed! wait for auto download 😎",
@@ -129,9 +128,6 @@ exports.deleteSingleImage = async (req, res) => {
   }
 };
 
-async function progressBar(progress) {
-  console.log(progress);
-}
 exports.downloadAsPDf = async (req, res) => {
   const pdfFile = `${__dirname}/../../pdf/result.pdf`;
   res.download(pdfFile);

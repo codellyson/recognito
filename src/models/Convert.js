@@ -5,7 +5,7 @@ const imageSchema = new Schema({
   date: {
     type: Date,
     default: Date.now(),
-    expires: 18000,
+    // expires: 18000,
   },
 });
 
